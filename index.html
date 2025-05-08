@@ -23,7 +23,7 @@
     </div>
     <div>
         <h5>2. 값 편집</h5>
-        <table>
+        <table class="table-container">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -33,13 +33,15 @@
             </thead>
             <tbody id="table-value"></tbody>
         </table>
-        <button id="table-apply-btn">Apply</button>
+        <div class="table-apply-btn-container">
+            <button id="table-apply-btn">Apply</button>
+        </div>
     </div>
     <div>
         <h5>3. 값 추가</h5>
         <div id="input-container">
-            <input type="number" id="add-id" min="1" placeholder="ID">
-            <input type="number" id="add-value" placeholder="VALUE">
+            <input type="number" id="add-id" class="no-spinner" min="1" placeholder="ID">
+            <input type="number" id="add-value" class="no-spinner" placeholder="VALUE">
             <button id="add-btn">Add</button>
         </div>
     </div>

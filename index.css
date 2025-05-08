@@ -5,6 +5,21 @@ body {
     box-sizing: border-box;
 }
 
+button {
+    cursor: pointer;
+}
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+    padding: 3px 3px;
+}
+
+/* 차트 css */
 #chart-container {
     display: flex;
     max-width: 100%;
@@ -85,4 +100,78 @@ body {
     margin-top: 5px;
     font-size: 12px;
     text-align: center;
+}
+
+/* 테이블 css */
+.table-container {
+    width: 100%;
+    table-layout: fixed;
+    align-items: center;
+    text-align: center;
+    font-size: 12px;
+}
+
+th:nth-child(1), td:nth-child(1) { width: 20%; }
+th:nth-child(2), td:nth-child(2) { width: 70%; }
+th:nth-child(3), td:nth-child(3) { width: 10%; }
+
+tr {
+    height: 30px;
+}
+
+tr button {
+    color: red;
+    background-color: transparent;
+    border: none;
+}
+
+.table-container thead {
+    background-color: #D3D3D3
+}
+
+tbody {
+    background-color: #F5F5F5;
+}
+
+table input {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    text-align: center;
+  }
+
+.table-container input {
+    text-align: center;
+    border: none;
+}
+
+.table-apply-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 3px;
+}
+
+#table-apply-btn {
+    height: 25px;
+    width: 61px;
+}
+
+/* 값 추가 css */
+#input-container {
+    display: flex;
+    width: 100%;
+}
+
+#add-id {
+    width: 10%;
+}
+
+#add-value {
+    width: 75%;
+    margin-left: 5px;
+}
+
+#add-btn {
+    width: 10%;
+    margin-left: 10px;
 }

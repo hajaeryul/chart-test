@@ -83,6 +83,7 @@ const renderTable = () => {
         const valueInput = document.createElement('input');
         valueInput.type = 'number';
         valueInput.value = value;
+        valueInput.className = 'no-spinner'
         valueInput.dataset.id = id;
         valueCell.appendChild(valueInput);
 
@@ -111,7 +112,6 @@ const renderChart = () => {
 
     const maxHeight = 200;
     const maxValue = 100;
-    const chartHeight = 200;
 
     for(const [id, value] of Object.entries(data)){
         console.log(`id: ${id}, value: ${value}`);
