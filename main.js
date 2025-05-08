@@ -5,10 +5,13 @@ const addBtn = document.getElementById('add-btn');
 
 // 테이블 바디
 const tableBody = document.getElementById('table-value');
+// 차트
+const barChart = document.getElementById('bar-chart');
 
 // 내부 상태 저장
 const data = {};
 
+// 값 추가 버튼 클릭 이벤트
 addBtn.addEventListener('click', () => {
     const id = addIdInput.value.trim();
     const value = addValueInput.value.trim();
@@ -16,6 +19,12 @@ addBtn.addEventListener('click', () => {
     // ID 입력 여부
     if(id === ''){
         alert('ID를 입력하세요.');
+        return;
+    }
+
+    // value 입력 여부
+    if(value === '') {
+        alert('값을 입력하세요.');
         return;
     }
 
@@ -33,6 +42,7 @@ addBtn.addEventListener('click', () => {
 
     data[id] = Number(value);
     renderTable();
+    renderChart();
 
     // 입력값 초기화
     addIdInput.value = '';
@@ -65,6 +75,7 @@ const renderTable = () => {
         deleteBtn.addEventListener('click', () => {
             delete data[id];
             renderTable();
+            renderChart();
         })
         deleteCell.appendChild(deleteBtn);
 
@@ -73,5 +84,32 @@ const renderTable = () => {
         row.appendChild(valueCell);
         row.appendChild(deleteCell);
         tableBody.appendChild(row);
+    }
+}
+
+// 차트 렌더링
+const renderChart = () => {
+    barChart.innerHTML = '';
+
+    const maxHeight = 200;
+    const maxValue = 100;
+    const chartHeight = 200;
+
+    for(const [id, value] of Object.entries(data)){
+        console.log(`id: ${id}, value: ${value}`);
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+
+        const barRect = document.createElement('div');
+        barRect.className = 'bar-rect';
+        barRect.style.height = `${(value / maxValue) * maxHeight}px`;
+
+        const barLabel = document.createElement('div');
+        barLabel.className = 'bar-label';
+        barLabel.textContent = id;
+        
+        bar.appendChild(barRect);
+        bar.appendChild(barLabel);
+        barChart.appendChild(bar);
     }
 }

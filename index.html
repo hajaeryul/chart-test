@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>인터랙티브 막대 챠트 어플리케이션 제작_하재률</title>
+    <link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <h3>아이엠파인 SD팀 지원자 하재률</h3>
     <div>
         <h5>1. 그래프</h5>
-        <div id="bar-chart"></div>
+        <div id="chart-container">
+            <div id="y-axis">
+                <div>100</div>
+                <div>50</div>
+            </div>
+            <div class="chart-area">
+                <div class="bar-area" id="bar-chart"></div>
+                <div class="x-axis" id="x-axis"></div>
+            </div>
+        </div>
     </div>
     <div>
         <h5>2. 값 편집</h5>
@@ -28,8 +38,8 @@
     <div>
         <h5>3. 값 추가</h5>
         <div id="input-container">
-            <input type="number" id="add-id" min="1">
-            <input type="number" id="add-value">
+            <input type="number" id="add-id" min="1" placeholder="ID">
+            <input type="number" id="add-value" placeholder="VALUE">
             <button id="add-btn">Add</button>
         </div>
     </div>
