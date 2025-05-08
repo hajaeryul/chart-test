@@ -8,9 +8,12 @@ const tableBody = document.getElementById('table-value');
 const tableApplyBtn = document.getElementById('table-apply-btn');
 // 차트
 const barChart = document.getElementById('bar-chart');
+// 고급 값 편집
+const advancedTextarea = document.getElementById('advanced-textarea');
+const advancedApplyBtn = document.getElementById('advanced-apply-btn')
 
 // 내부 상태 저장
-const data = {};
+let data = {};
 
 // 값 추가 버튼 클릭 이벤트
 addBtn.addEventListener('click', () => {
@@ -44,6 +47,7 @@ addBtn.addEventListener('click', () => {
     data[id] = Number(value);
     renderTable();
     renderChart();
+    updateAdvancedEditor();
 
     // 입력값 초기화
     addIdInput.value = '';
@@ -65,6 +69,7 @@ tableApplyBtn.addEventListener('click', () => {
 
     renderTable();
     renderChart();
+    updateAdvancedEditor();
 })
 
 // 테이블 렌더링
@@ -95,6 +100,7 @@ const renderTable = () => {
             delete data[id];
             renderTable();
             renderChart();
+            updateAdvancedEditor();
         })
         deleteCell.appendChild(deleteBtn);
 
@@ -114,7 +120,6 @@ const renderChart = () => {
     const maxValue = 100;
 
     for(const [id, value] of Object.entries(data)){
-        console.log(`id: ${id}, value: ${value}`);
         const bar = document.createElement('div');
         bar.className = 'bar';
 
@@ -131,3 +136,36 @@ const renderChart = () => {
         barChart.appendChild(bar);
     }
 }
+
+// 고급 값 편집
+const updateAdvancedEditor = () => {
+    const jsonArray = Object.entries(data).map(([id, value]) => ({
+        id: Number(id),
+        value
+    }));
+
+    console.log(jsonArray)
+
+    advancedTextarea.value = JSON.stringify(jsonArray, null, 2);
+}
+
+advancedApplyBtn.addEventListener('click', () => {
+    try {
+        const json = JSON.parse(advancedTextarea.value);
+
+        const newData = {};
+        json.forEach(item => {
+            if(typeof item.id !== 'number' || typeof item.value !== 'number') {
+                throw new Error('ID와 value는 숫자만 입력 가능합니다.');
+            }
+            newData[item.id] = item.value;
+        })
+
+        data = newData;
+        renderTable();
+        renderChart();
+        updateAdvancedEditor();
+    } catch(e) {
+        alert('JSON 형식이 올바르지 않습니다.\n' + e.message);
+    }
+})
