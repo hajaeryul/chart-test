@@ -3,8 +3,9 @@ const addIdInput = document.getElementById('add-id');
 const addValueInput = document.getElementById('add-value');
 const addBtn = document.getElementById('add-btn');
 
-// 테이블 바디
+// 테이블
 const tableBody = document.getElementById('table-value');
+const tableApplyBtn = document.getElementById('table-apply-btn');
 // 차트
 const barChart = document.getElementById('bar-chart');
 
@@ -47,6 +48,23 @@ addBtn.addEventListener('click', () => {
     // 입력값 초기화
     addIdInput.value = '';
     addValueInput.value = '';
+})
+
+// 테이블 apply 버튼 클릭 이벤트
+tableApplyBtn.addEventListener('click', () => {
+    const inputs = tableBody.querySelectorAll('input[type="number"]');
+
+    inputs.forEach(input => {
+        const id = input.dataset.id;
+        const newValue = Number(input.value);
+
+        if(!isNaN(newValue)) {
+            data[id] = newValue;
+        }
+    })
+
+    renderTable();
+    renderChart();
 })
 
 // 테이블 렌더링
