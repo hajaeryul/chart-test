@@ -135,6 +135,7 @@ tr {
 
 tr button {
     color: red;
+    font-size: 13px;
     background-color: transparent;
     border: none;
 }

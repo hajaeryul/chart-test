@@ -6,6 +6,7 @@ const addBtn = document.getElementById('add-btn');
 // 테이블
 const tableBody = document.getElementById('table-value');
 const tableApplyBtn = document.getElementById('table-apply-btn');
+const tableInput = document.getElementById('table-value');
 // 차트
 const barChart = document.getElementById('bar-chart');
 // 고급 값 편집
@@ -15,6 +16,9 @@ const advancedApplyBtn = document.getElementById('advanced-apply-btn')
 // 내부 상태 저장
 let data = {};
 
+// 페이지 로딩시 id입력 포커스
+addIdInput.focus();
+
 // 값 추가 버튼 클릭 이벤트
 addBtn.addEventListener('click', () => {
     const id = addIdInput.value.trim();
@@ -23,6 +27,7 @@ addBtn.addEventListener('click', () => {
     // ID 입력 여부
     if(id === ''){
         alert('ID를 입력하세요.');
+        addIdInput.focus();
         return;
     }
 
@@ -35,12 +40,14 @@ addBtn.addEventListener('click', () => {
     // 음수 or 0 검증
     if(Number(id) <= 0 || isNaN(Number(id))){
         alert('ID는 1이상 양수여야 합니다.');
+        addIdInput.focus();
         return;
     }
 
     // ID 중복 확인
     if(data[id] !== undefined){
         alert('이미 해당 ID가 존재합니다.');
+        addIdInput.focus();
         return;
     }
 
@@ -52,6 +59,27 @@ addBtn.addEventListener('click', () => {
     // 입력값 초기화
     addIdInput.value = '';
     addValueInput.value = '';
+
+    addIdInput.focus();
+})
+
+// 값 추가 엔터키로 작동
+addValueInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') {
+        addBtn.click();
+    }
+})
+
+addIdInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') {
+        addBtn.click();
+    }
+})
+
+tableInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') {
+        tableApplyBtn.click();
+    }
 })
 
 // 테이블 apply 버튼 클릭 이벤트
@@ -88,7 +116,8 @@ const renderTable = () => {
         const valueInput = document.createElement('input');
         valueInput.type = 'number';
         valueInput.value = value;
-        valueInput.className = 'no-spinner'
+        valueInput.className = 'no-spinner';
+        valueInput.id = 'table-value';
         valueInput.dataset.id = id;
         valueCell.appendChild(valueInput);
 
@@ -126,6 +155,7 @@ const renderChart = () => {
         const barRect = document.createElement('div');
         barRect.className = 'bar-rect';
         barRect.style.height = `${(value / maxValue) * maxHeight}px`;
+        barRect.setAttribute('title', value);
 
         const barLabel = document.createElement('div');
         barLabel.className = 'bar-label';
